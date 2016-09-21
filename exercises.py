@@ -61,8 +61,8 @@ class Dogs(object):
     # Add code for Question 5 here
     # (Provide an iterator interface for the Dogs class)
     def __iter__(self):
-    	for d in self.dogs:
-    		yield d
+        for d in self.dogs:
+            yield d
 
     def new_name(self):
         """Define a simple generator of dog names that are not in this collection"""
@@ -70,14 +70,14 @@ class Dogs(object):
         existing_names = [d.name for d in dogs]
         new_name = get_random_dog_name()
         if new_name not in existing_names:
-        	yield new_name
+            yield new_name
 
     def search(self, colour_id):
         """Return a generator expression of all dogs with supplied colour"""
         # Add code for Question #7 here
         for d in dogs:
-        	if d.colour_id == colour_id:
-        		yield d
+            if d.colour_id == colour_id:
+                yield d
 
 
 def question_1(dogs):
