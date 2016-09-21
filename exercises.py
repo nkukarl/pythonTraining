@@ -60,34 +60,56 @@ class Dogs(object):
 
     # Add code for Question 5 here
     # (Provide an iterator interface for the Dogs class)
+    def __iter__(self):
+    	for d in self.dogs:
+    		yield d
 
     def new_name(self):
         """Define a simple generator of dog names that are not in this collection"""
         # Add code for Question #6 here
+        existing_names = [d.name for d in dogs]
+        new_name = get_random_dog_name()
+        if new_name not in existing_names:
+        	yield new_name
 
     def search(self, colour_id):
         """Return a generator expression of all dogs with supplied colour"""
         # Add code for Question #7 here
+        for d in dogs:
+        	if d.colour_id == colour_id:
+        		yield d
 
 
 def question_1(dogs):
     """Get all the unique colour names from the dogs list"""
     # Add your code here
+    return set([d.colour_id for d in dogs])
 
 
 def question_2(dogs):
     """Get all the black dogs"""
     # Add your code here
+    return [d for d in dogs if d.colour_id == "BLK"]
 
 
 def question_3(dogs):
     """Build a map between dog colour id to dog name set"""
     # Add your code here
-
+    colours = COLOURS.keys()
+    ans = dict(zip(colours, [set() for i in range(len(colours))]))
+    for d in dogs:
+        ans[d.colour_id].add(d.name)
+    return ans
 
 def question_4():
     """Modify the Dog class to simplify getting the colour **name**"""
     # Define your new Dog class here
+    class Dog(object):
+     
+        def __init__(self, name, colour_id):
+            self.name = name
+            self.colour_id = colour_id
+            self.colour_name = COLOURS[colour_id]
 
 
 def main():
