@@ -96,7 +96,7 @@ def question_3(dogs):
     """Build a map between dog colour id to dog name set"""
     # Add your code here
     colours = COLOURS.keys()
-    ans = dict(zip(colours, [set() for i in range(len(colours))]))
+    ans = dict(zip(colours, [set()] * len(colours)))
     for d in dogs:
         ans[d.colour_id].add(d.name)
     return ans
