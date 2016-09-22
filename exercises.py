@@ -109,7 +109,10 @@ def question_4():
         def __init__(self, name, colour_id):
             self.name = name
             self.colour_id = colour_id
-            self.colour_name = COLOURS[colour_id]
+        
+        @property    
+        def colour_name(self)
+            return COLOURS[self.colour_id]
 
 
 def main():
