@@ -83,7 +83,7 @@ class Dogs(object):
 def question_1(dogs):
     """Get all the unique colour names from the dogs list"""
     # Add your code here
-    return set([d.colour_id for d in dogs])
+    return {d.colour_id for d in dogs}
 
 
 def question_2(dogs):
