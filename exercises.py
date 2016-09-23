@@ -52,8 +52,8 @@ dogs = [
 # End: Do not modify code in the above section
 ################################################################################
 
-
-class Dogs(object):
+from collections import Iterable
+class Dogs(Iterable):
 
     def __init__(self, dogs):
         self.dogs = dogs
@@ -61,24 +61,25 @@ class Dogs(object):
     # Add code for Question 5 here
     # (Provide an iterator interface for the Dogs class)
     def __iter__(self):
-        for d in self.dogs:
-            yield d
+        # for d in self.dogs:
+        #     yield d
+        return iter(self.dogs)
 
     def new_name(self):
         """Define a simple generator of dog names that are not in this collection"""
         # Add code for Question #6 here
-        existing_names = [d.name for d in dogs]
-        new_name = get_random_dog_name()
-        if new_name not in existing_names:
-            yield new_name
+        existing_names = [d.name for d in self.dogs]
+        while True:
+            new_name = get_random_dog_name()
+            if new_name not in existing_names:
+                break
+        yield new_name
+
 
     def search(self, colour_id):
         """Return a generator expression of all dogs with supplied colour"""
         # Add code for Question #7 here
-        for d in dogs:
-            if d.colour_id == colour_id:
-                yield d
-
+        return (d for d in dogs if d.colour_id == colour_id)
 
 def question_1(dogs):
     """Get all the unique colour names from the dogs list"""
@@ -96,7 +97,8 @@ def question_3(dogs):
     """Build a map between dog colour id to dog name set"""
     # Add your code here
     colours = COLOURS.keys()
-    ans = dict(zip(colours, [set() for _ in range(len(colours))]))
+    N = len(colours)
+    ans = dict(zip(colours, [set() for _ in range(N)]))
     for d in dogs:
         ans[d.colour_id].add(d.name)
     return ans
@@ -154,9 +156,11 @@ def main():
 
     # Run question 7
     question_7_result = dog_collection.search("BLK")
-    assert (hasattr(question_7_result, '__iter__') and not
-            hasattr(question_7_result, '__len__')), "Question 7 Failed!"
+    # assert (hasattr(question_7_result, '__iter__') and not
+    #         hasattr(question_7_result, '__len__')), "Question 7 Failed!"
     assert set(question_7_result) == black_dogs, "Question 7 Failed!"
+    import types
+    assert type(question_7_result) == types.GeneratorType, "Question 7 Failed!"
 
 
 if __name__=='__main__':
